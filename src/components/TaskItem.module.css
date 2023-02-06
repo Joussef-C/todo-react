@@ -1,0 +1,58 @@
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6em;
+  font-size: var(--_size);
+  padding: .6em;
+  background-color: #ecebf4;
+}
+
+.task-group {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+
+.label {
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.checkbox {
+  appearance: none;
+  border-radius: var(--_radius);
+  width: 1em;
+  height: 1em;
+  background-color: hsl(var(--muted));
+  box-shadow: 1px 1px 1px 1px ;
+
+}
+
+.checkmark {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  display: grid;
+  place-items: center;
+  top: 50%;
+  color: hsl(var(--muted));
+  transform: translate3d(calc(-100% - .5em), -50%, 0);
+}
+
+.checkbox:checked {
+  background-color: #4539c6;
+}
+
+.checkbox:checked+label {
+  text-decoration: line-through;
+}
+
+.delete {
+  --accent: var(--accentred);
+}
+
+
+
