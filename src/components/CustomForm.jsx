@@ -3,11 +3,16 @@ import { PlusIcon } from '@heroicons/react/24/solid'
 
 const CustomForm = ({ addTask }) => {
   const [task, setTask] = useState("");
+  const trimmedTask = task.trim();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    if (!trimmedTask) {
+      return;
+    }
+
     addTask({
-      name: task,
+      name: trimmedTask,
       checked: false,
       id: Date.now()
     })
@@ -19,23 +24,22 @@ const CustomForm = ({ addTask }) => {
       className="todo"
       onSubmit={handleFormSubmit}
       >
-      <div className="wrapper">
-        <input
-          type="text"
-          id="task"
-          className="input"
-          value={task}
-          onInput={(e) => setTask(e.target.value)}
-          required
-          autoFocus
-          maxLength={60}
-          placeholder="Enter Task"
-        />
-      </div>
+      <input
+        type="text"
+        id="task"
+        className="input"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+        required
+        autoFocus
+        maxLength={60}
+        placeholder="Add a task"
+      />
       <button
-        className="btn"
+        className="btn primary-btn"
         aria-label="Add Task"
         type="submit"
+        disabled={!trimmedTask}
         >
         <PlusIcon />
       </button>

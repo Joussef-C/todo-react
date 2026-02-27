@@ -1,13 +1,16 @@
 import TaskItem from './TaskItem';
-import styles from './TaskItem.module.css';
+import styles from './TaskList.module.css';
 
-const TaskList = ({ tasks, deleteTask, toggleTask, enterEditMode }) => {
+const TaskList = ({ tasks, newTaskId, deleteTask, toggleTask, enterEditMode }) => {
+  const sortedTasks = [...tasks].sort((a, b) => b.id - a.id);
+
   return (
     <ul className={styles.tasks}>
-      {tasks.sort((a, b) => b.id - a.id).map(task => (
+      {sortedTasks.map(task => (
         <TaskItem
           key={task.id}
           task={task}
+          isNew={task.id === newTaskId}
           deleteTask={deleteTask}
           toggleTask={toggleTask}
           enterEditMode={enterEditMode}

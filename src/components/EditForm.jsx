@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { CheckIcon } from '@heroicons/react/24/solid'
 
 const EditForm = ({ editedTask, updateTask, closeEditMode }) => {
   const [updatedTaskName, setUpdatedTaskName] = useState(editedTask.name);
+  const trimmedName = updatedTaskName.trim();
 
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    updateTask({...editedTask, name: updatedTaskName})
+    if (!trimmedName) {
+      return;
+    }
+    updateTask({ ...editedTask, name: trimmedName })
   }
 
   return (
@@ -17,25 +21,24 @@ const EditForm = ({ editedTask, updateTask, closeEditMode }) => {
       onClick={(e) => {e.target === e.currentTarget && closeEditMode()}}
       >
       <form
-        className="todo"
+        className="todo edit-form"
         onSubmit={handleFormSubmit}
         >
-        <div className="wrapper">
-          <input
-            type="text"
-            id="editTask"
-            className="input"
-            value={updatedTaskName}
-            onInput={(e) => setUpdatedTaskName(e.target.value)}
-            required
-            autoFocus
-            maxLength={60}
-            placeholder="Update Task"
-          />
-        </div>
+        <input
+          type="text"
+          id="editTask"
+          className="input"
+          value={updatedTaskName}
+          onChange={(e) => setUpdatedTaskName(e.target.value)}
+          required
+          autoFocus
+          maxLength={60}
+          placeholder="Rename task"
+        />
         <button
-          className="btn"
+          className="btn primary-btn"
           type="submit"
+          disabled={!trimmedName}
           >
           <CheckIcon strokeWidth={2} height={24} width={24} />
         </button>
